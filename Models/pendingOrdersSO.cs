@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+#nullable disable
+
+namespace mbfwAPI.Models
+{
+  [Keyless]
+  public partial class PendingOrdersSO
+      {
+        [Required]
+        [Column("PCODE")]
+        [StringLength(25)]
+        public string Pcode { get; set; }
+        [Column("PNAME")]
+        [StringLength(150)]
+        public string Pname { get; set; }
+        [Column("UNIT")]
+        [StringLength(20)]
+        public string Unit { get; set; }
+        [Column("SRATEP")]
+        public double? Sratep { get; set; }
+        [Column("PTYPE")]
+        public short? Ptype { get; set; }
+        [Column("GNAME")]
+        [StringLength(25)]
+        public string Gname { get; set; }
+        [Column("SONO")]
+        public int? Sono { get; set; }
+        [Column("VCODE")]
+        [StringLength(50)]
+        public string Vcode { get; set; }
+        [Column("VNAME")]
+        [StringLength(150)]
+        public string Vname { get; set; }
+        [Column("ORDFROM")]
+        public short? Ordfrom { get; set; }
+        [Column("CITY")]
+        [StringLength(150)]
+        public string City { get; set; }
+        [Column("QTY")]
+        public double? Qty { get; set; }
+      }
+}
