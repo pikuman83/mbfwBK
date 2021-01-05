@@ -16,11 +16,13 @@ namespace mbfwAPI.Controllers
   public class ValuesController : ControllerBase
   {
             [HttpPost, DisableRequestSizeLimit]
-        public IActionResult Upload()
+        public async Task<IActionResult> Upload()
         {
             try
             {
-                var file = Request.Form.Files[0];
+                var formCollection = await Request.ReadFormAsync();
+                var file = formCollection.Files.First();
+                //var file = Request.Form.Files[0];
                 var folderName = Path.Combine("Resources", "Images");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
@@ -32,7 +34,7 @@ namespace mbfwAPI.Controllers
 
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
-                        file.CopyTo(stream);
+                        await file.CopyToAsync(stream);
                     }
 
                     return Ok(new { dbPath });
