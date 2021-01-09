@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -264,7 +264,6 @@ namespace mbfwAPI.Models
                 entity.Property(e => e.Grp).ValueGeneratedNever();
             });
 
-
             modelBuilder.Entity<Pgroup>(entity =>
             {
                 entity.Property(e => e.Pgrp).ValueGeneratedNever();
@@ -335,6 +334,13 @@ namespace mbfwAPI.Models
             {
                 entity.Property(e => e.No).ValueGeneratedNever();
             });
+
+            //modelBuilder.Entity<Sale2>(entity =>
+            //{
+            //    entity.Property(e => e.Id).ValueGeneratedNever();
+
+            //    entity.Property(e => e.No).ValueGeneratedOnAdd();
+            //});
 
             modelBuilder.Entity<Service1>(entity =>
             {

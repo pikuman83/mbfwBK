@@ -34,6 +34,12 @@ namespace mbfw_api.Controllers
           return Ok(await _context.Accounts.Where(x => x.Atype == 13).ToListAsync());
         }
 
+        [HttpGet("mb/type10")]
+        public async Task<ActionResult> GetSalesAccounts()
+        {
+            return Ok(await _context.Accounts.Where(x => x.Atype == 10).ToListAsync());
+        }
+
         // GET: api/Accounts/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Account>> GetAccount(string id)

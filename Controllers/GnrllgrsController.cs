@@ -100,7 +100,7 @@ namespace mbfwAPI.Controllers
         }
 
 
-        [HttpDelete("del/{id1:int}/{id2}")]
+        [HttpDelete("del/{id1}/{id2}")]
         public async Task<IActionResult> DeleteGnrllgr1(int? id1, string id2)
         {
           var gnrllgr = await _context.Gnrllgrs.Where(x => x.No ==id1 & x.Jo == id2).ToListAsync();

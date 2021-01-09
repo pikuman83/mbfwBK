@@ -27,6 +27,12 @@ namespace mbfwAPI.Controllers
             return await _context.Sorder2s.ToListAsync();
         }
 
+        [HttpGet("mb/rate/{pcode}/{No}")] //used in salesorder
+        public async Task<ActionResult<IEnumerable<Sorder2>>> GetProductRate(string pcode, int No)
+        {
+            return Ok(await _context.Sorder2s.Where(x => x.No == No && x.Pcode == pcode).FirstAsync());
+        }
+
         [HttpGet("{No}")]
         public async Task<ActionResult> GetByNo(int No)
         {

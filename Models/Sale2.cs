@@ -12,7 +12,7 @@ namespace mbfwAPI.Models
     public partial class Sale2
     {
         [Column("NO")]
-        public short? No { get; set; }
+        public short No { get; set; }
         [Column("VDATE", TypeName = "datetime")]
         public DateTime? Vdate { get; set; }
         [Column("PCODE")]
@@ -61,7 +61,7 @@ namespace mbfwAPI.Models
         [Column("SONO")]
         public int? Sono { get; set; }
         [Key]
-        [Column("id")]
+        [Column("ID")]
         public int Id { get; set; }
     }
 }

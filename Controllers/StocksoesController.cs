@@ -51,23 +51,7 @@ namespace mbfwAPI.Controllers
         }
 
         // DELETE: api/Stocksoes/5
-        [HttpDelete("delete/{id1:int}/{id2}/{pcode}")]
-        public async Task<IActionResult> DeleteGnrllgr1(int? id1, string id2, string pcode)
-        {
-          var product = await _context.Stocksos.Where(x => x.No == id1 & x.Jo == id2 & x.Pcode == pcode).ToListAsync();
-          if (product == null)
-          {
-            return NotFound();
-          }
-            _context.Stocksos.Remove(product[0]);
-
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        // DELETE: api/Stocksoes/5
-        [HttpDelete("del/{id1:int}/{id2}")]
+        [HttpDelete("del/{id1}/{id2}")]
         public async Task<IActionResult> DeleteGnrllgr2(int? id1, string id2)
         {
           var product = await _context.Stocksos.Where(x => x.No == id1 & x.Jo == id2).ToListAsync();

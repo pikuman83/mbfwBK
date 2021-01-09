@@ -1,8 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +10,6 @@ using mbfwAPI.Models;
 namespace mbfwAPI.Controllers
 {
     [Route("api/[controller]")]
-    
     [ApiController]
     public class Sale2Controller : ControllerBase
     {
@@ -29,49 +27,27 @@ namespace mbfwAPI.Controllers
             return await _context.Sale2s.ToListAsync();
         }
 
-        [HttpGet("search/{No}")]
-
-        public async Task<ActionResult<IEnumerable<Sale2>>> ListByNumber(short No)
+        [HttpGet("{No}")]
+        public async Task<ActionResult> GetByNo(int No)
         {
-            return await _context.Sale2s.Where(x => x.No.Equals(No)).ToListAsync();
+            return Ok(await _context.Sale2s.Where(x => x.No == No).ToListAsync());
         }
 
-        // GET: api/Sale2/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Sale2>> GetSale2(int id)
+        // POST: api/Sale2
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<Sale2>> PostSale2(Sale2 sale2)
         {
-            var sale2 = await _context.Sale2s.FindAsync(id);
-
-            if (sale2 == null)
-            {
-                return NotFound();
-            }
-
-            return sale2;
-        }
-
-        // PUT: api/Sale2/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSale2(int id, Sale2 sale2)
-        {
-            if (id != sale2.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(sale2).State = EntityState.Modified;
-
+            _context.Sale2s.Add(sale2);
             try
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateException)
             {
-                if (!Sale2Exists(id))
+                if (Sale2Exists(sale2.Id))
                 {
-                    return NotFound();
+                    return Conflict();
                 }
                 else
                 {
@@ -79,35 +55,26 @@ namespace mbfwAPI.Controllers
                 }
             }
 
-            return NoContent();
-        }
-
-        // POST: api/Sale2
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<Sale2>> PostSale2(Sale2 sale2)
-        {
-            _context.Sale2s.Add(sale2);
-            await _context.SaveChangesAsync();
-
             return CreatedAtAction("GetSale2", new { id = sale2.Id }, sale2);
         }
 
         // DELETE: api/Sale2/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Sale2>> DeleteSale2(int id)
+        [HttpDelete("{No}")]
+        public async Task<IActionResult> DeleteBankjv(int No)
         {
-            var sale2 = await _context.Sale2s.FindAsync(id);
-            if (sale2 == null)
+            var bankjv = await _context.Sale2s.Where(x => x.No == No).ToListAsync();
+
+            if (bankjv == null)
             {
                 return NotFound();
             }
-
-            _context.Sale2s.Remove(sale2);
+            for (int i = 0; i < bankjv.Count; i++)
+            {
+                _context.Sale2s.Remove(bankjv[i]);
+            }
             await _context.SaveChangesAsync();
 
-            return sale2;
+            return NoContent();
         }
 
         private bool Sale2Exists(int id)

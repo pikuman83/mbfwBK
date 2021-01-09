@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,20 +22,20 @@ namespace mbfwAPI.Controllers
 
         // GET: api/Sale1
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Sale1>>> GetSale1s()
+        public async Task<ActionResult<IEnumerable<Sale1>>> GetSale1()
         {
             return await _context.Sale1s.ToListAsync();
         }
 
-        [HttpGet("max/{No}")]
+        [HttpGet("max")]
         public async Task<ActionResult<IEnumerable<int>>> GetmaxNo()
         {
             int maxNo = await _context.Sale1s.MaxAsync(x => (int?)x.No) ?? 0;
             return Ok(maxNo);
         }
 
-         // GET: api/Sale1/5
-         [HttpGet("{id}")]
+        // GET: api/Sale1/5
+        [HttpGet("{id}")]
         public async Task<ActionResult<Sale1>> GetSale1(int id)
         {
             var sale1 = await _context.Sale1s.FindAsync(id);
@@ -46,37 +46,6 @@ namespace mbfwAPI.Controllers
             }
 
             return sale1;
-        }
-
-        // PUT: api/Sale1/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSale1(int id, Sale1 sale1)
-        {
-            if (id != sale1.No)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(sale1).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!Sale1Exists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // POST: api/Sale1

@@ -40,6 +40,12 @@ namespace mbfwAPI.Controllers
           return Ok(await _context.Sorder1s.FromSqlRaw("select g.* from SORDER1 g left outer join STOCKSO p on (g.no=p.SONO and p.JO IN('DC','SOC'))  where p.SONO is null and g.vcode<>'CUST10191' Order By g.VDATE").ToListAsync());
         }
 
+        [HttpGet("mb/pendingRecords")] //used in SalesCredit voucher
+        public async Task<ActionResult> GetpendingRecordsForSalesVoucher()
+        {
+            return Ok(await _context.Grn1s.FromSqlRaw("select g.* from GIN1 g left outer join SALE1 p on g.no=p.ginno where p.ginno is null AND g.STYPE=0 Order By g.VDATE").ToListAsync());
+        }
+
         // GET: api/Gin1/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Gin1>> GetGin1(int id)
