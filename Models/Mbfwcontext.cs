@@ -142,7 +142,6 @@ namespace mbfwAPI.Models
         public virtual DbSet<UidPassChild> UidPassChildren { get; set; }
         public virtual DbSet<View1> View1s { get; set; }
         public virtual DbSet<View2> View2s { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
@@ -335,12 +334,10 @@ namespace mbfwAPI.Models
                 entity.Property(e => e.No).ValueGeneratedNever();
             });
 
-            //modelBuilder.Entity<Sale2>(entity =>
-            //{
-            //    entity.Property(e => e.Id).ValueGeneratedNever();
-
-            //    entity.Property(e => e.No).ValueGeneratedOnAdd();
-            //});
+            modelBuilder.Entity<Salecash1>(entity =>
+            {
+                entity.Property(e => e.No).ValueGeneratedNever();
+            });
 
             modelBuilder.Entity<Service1>(entity =>
             {

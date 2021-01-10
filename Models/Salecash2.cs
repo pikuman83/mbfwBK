@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mbfwAPI.Models
 {
-    [Keyless]
     [Table("SALECASH2")]
     public partial class Salecash2
     {
@@ -61,5 +60,8 @@ namespace mbfwAPI.Models
         public double? Slrate { get; set; }
         [Column("SONO")]
         public int? Sono { get; set; }
+        [Key]
+        [Column("id")]
+        public int Id { get; set; }
     }
 }
