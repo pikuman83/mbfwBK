@@ -33,20 +33,6 @@ namespace mbfwAPI.Controllers
             return Ok(await _context.Salecash2s.Where(x => x.No == No).ToListAsync());
         }
 
-        // GET: api/Salecash2/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Salecash2>> GetSalecash2(int id)
-        {
-            var salecash2 = await _context.Salecash2s.FindAsync(id);
-
-            if (salecash2 == null)
-            {
-                return NotFound();
-            }
-
-            return salecash2;
-        }
-
         // POST: api/Salecash2
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]

@@ -72,13 +72,13 @@ namespace mbfwAPI
                 builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
             .AllowAnyMethod()
             .AllowAnyHeader());
-
             app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
-                RequestPath = new PathString("/Resources")
-            });
+
+            //app.UseStaticFiles(new StaticFileOptions()
+            //{
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+            //    RequestPath = new PathString("/Resources")
+            //});
 
             app.UseHttpsRedirection();
 

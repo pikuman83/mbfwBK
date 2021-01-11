@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mbfwAPI.Models
 {
-    [Keyless]
     [Table("SRET1")]
     public partial class Sret1
     {
+        [Key]
         [Column("NO")]
         public int No { get; set; }
         [Column("VDATE", TypeName = "datetime")]

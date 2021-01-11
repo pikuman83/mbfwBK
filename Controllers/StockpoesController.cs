@@ -38,14 +38,15 @@ namespace mbfwAPI.Controllers
 
     [HttpGet("mb/pendingRecords/{date}")] //used in Goods Receipt's F1 lookup
     public async Task<ActionResult> GetpendingRecords(DateTime date)
-    {
-      var po = await _context.PendingOrdersPO.FromSqlRaw<PendingOrdersPO>("pendingOrdersPO {0}", date).ToListAsync();
-      return Ok(po);
-    }
+        {
+            var po = await _context.PendingOrdersPO.FromSqlRaw<PendingOrdersPO>("pendingOrdersPO {0}", date).ToListAsync();
+            if ((po != null) && (!po.Any())){ return new EmptyResult(); }
+            else return Ok(po);
+        }
 
-    // POST: api/Stockpoes
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPost]
+        // POST: api/Stockpoes
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
     public async Task<ActionResult<Stockpo>> PostStockpo(Stockpo stockpo)
     {
         _context.Stockpos.Add(stockpo);

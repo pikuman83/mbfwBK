@@ -113,5 +113,8 @@ namespace mbfwAPI.Models
         public double? Comm1 { get; set; }
         [Column("COMMRATE1")]
         public double? Commrate1 { get; set; }
+        [Column("etime")]
+        [StringLength(25)]
+        public string Etime { get; set; }
     }
 }

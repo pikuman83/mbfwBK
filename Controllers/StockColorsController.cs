@@ -27,13 +27,6 @@ namespace mbfwAPI.Controllers
           return await _context.StockColors.ToListAsync();
         }
 
-        // GET: api/StockColors/5
-        [HttpGet("{No}")]
-        public async Task<ActionResult> GetByNo(int No)
-        {
-          return Ok(await _context.StockColors.Where(x => x.No == No).ToListAsync());
-        }
-
         [HttpGet("mb/getByNo/{No}/{jo}")]
         public async Task<ActionResult> GetByNo1(int No, string jo)
         {
@@ -75,10 +68,10 @@ namespace mbfwAPI.Controllers
         }
 
         // DELETE: api/StockColors/5
-        [HttpDelete("{No}")]
-        public async Task<IActionResult> DeleteBankjv(int No)
+        [HttpDelete("{Jo}/{No}")]
+        public async Task<IActionResult> DeleteBankjv(string Jo, int No)
         {
-          var bankjv = await _context.StockColors.Where(x => x.No == No).ToListAsync();
+          var bankjv = await _context.StockColors.Where(x => x.No == No && x.Jo == Jo).ToListAsync();
 
           if (bankjv == null)
           {

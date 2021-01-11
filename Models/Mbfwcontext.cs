@@ -368,6 +368,11 @@ namespace mbfwAPI.Models
                 entity.Property(e => e.No).ValueGeneratedNever();
             });
 
+            modelBuilder.Entity<Sret1>(entity =>
+            {
+                entity.Property(e => e.No).ValueGeneratedNever();
+            });
+
             modelBuilder.Entity<Transport>(entity =>
             {
                 entity.Property(e => e.Tcode).ValueGeneratedNever();
