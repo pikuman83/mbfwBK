@@ -37,7 +37,7 @@ namespace mbfwAPI.Controllers
         [HttpGet("mb/f2Lookup")]
         public async Task<ActionResult> GetpendingRecords()
         {
-          return Ok(await _context.Sorder1s.FromSqlRaw("select g.* from SORDER1 g left outer join STOCKSO p on (g.no=p.SONO and p.JO IN('DC','SOC'))  where p.SONO is null and g.vcode<>'CUST10191' Order By g.VDATE").ToListAsync());
+          return Ok(await _context.Sorder1s.FromSqlRaw("select g.* from SORDER1 g left outer join STOCKSO p on (g.no=p.SONO and p.JO IN('DC','SOC')) where p.SONO is null and g.vcode<>'CUST10191' Order By g.VDATE").ToListAsync());
         }
 
         [HttpGet("mb/pendingRecords")] //used in SalesCredit voucher

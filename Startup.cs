@@ -1,27 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using mbfwAPI.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace mbfwAPI
@@ -32,7 +17,7 @@ namespace mbfwAPI
         {
             Configuration = configuration;
         }
-
+        //private readonly Mbfwcontext db;
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -54,7 +39,12 @@ namespace mbfwAPI
             {
               c.SwaggerDoc("v1", new OpenApiInfo { Title = "Webapplication1", Version = "v1" });
             });
-    }
+
+            //services.AddSpaStaticFiles(configuration =>
+            //{
+            //    configuration.RootPath = "wwwRoot";
+            //});
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -66,13 +56,29 @@ namespace mbfwAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Webapplication1 v1"));
              }
 
-            //app.UseCors(options => options.AllowAnyOrigin()
-            //"https://mbfwise1.web.app")
+            app.UseHttpsRedirection();
+
+            app.UseRouting();
             app.UseCors(builder =>
                 builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
-            .AllowAnyMethod()
-            .AllowAnyHeader());
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             app.UseStaticFiles();
+            //if (!env.IsDevelopment())
+            //{
+            //    app.UseSpaStaticFiles();
+            //}
+            //app.UseSpa(spa =>
+            //{
+            //    // To learn more about options for serving an Angular SPA
+            //    // see https://go.microsoft.com/fwlink/?linkid=864501
+            //    //spa.Options.SourcePath = "wwwRoot";
+            //    if (env.IsDevelopment())
+            //    {
+            //        spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+            //    }
+            //});
 
             //app.UseStaticFiles(new StaticFileOptions()
             //{
@@ -80,9 +86,8 @@ namespace mbfwAPI
             //    RequestPath = new PathString("/Resources")
             //});
 
-            app.UseHttpsRedirection();
+            //db.Database.Migrate();
 
-            app.UseRouting();
 
             app.UseAuthorization();
 

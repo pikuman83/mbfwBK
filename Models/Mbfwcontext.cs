@@ -161,6 +161,11 @@ namespace mbfwAPI.Models
                 entity.Property(e => e.Ccode).ValueGeneratedNever();
             });
 
+            modelBuilder.Entity<Claim1>(entity =>
+            {
+                entity.Property(e => e.No).ValueGeneratedNever();
+            });
+
             modelBuilder.Entity<Color>(entity =>
             {
                 entity.Property(e => e.Grp).ValueGeneratedNever();
@@ -361,6 +366,11 @@ namespace mbfwAPI.Models
                     .WithMany(p => p.Service2s)
                     .HasForeignKey(d => d.Pcode)
                     .HasConstraintName("FK_SERVICE2_SERVICE2");
+            });
+
+            modelBuilder.Entity<Socan1>(entity =>
+            {
+                entity.Property(e => e.No).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Sorder1>(entity =>

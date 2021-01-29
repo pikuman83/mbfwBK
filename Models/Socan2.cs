@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mbfwAPI.Models
 {
-    [Keyless]
     [Table("SOCAN2")]
     public partial class Socan2
     {
@@ -37,5 +36,8 @@ namespace mbfwAPI.Models
         [Column("GDNAME")]
         [StringLength(100)]
         public string Gdname { get; set; }
+        [Key]
+        [Column("ID")]
+        public int Id { get; set; }
     }
 }

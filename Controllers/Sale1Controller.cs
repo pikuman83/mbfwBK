@@ -48,6 +48,37 @@ namespace mbfwAPI.Controllers
             return sale1;
         }
 
+        // PUT: api/Sale1/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutSale1(int id, Sale1 sale1)
+        {
+            if (id != sale1.No)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(sale1).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!Sale1Exists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
         // POST: api/Sale1
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
