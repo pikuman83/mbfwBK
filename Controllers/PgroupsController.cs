@@ -29,6 +29,17 @@ namespace mbfwAPI.Controllers
             return await _context.Pgroups.ToListAsync();
         }
 
+        [HttpGet("reports/pgname")]
+        public async Task<ActionResult> GetByNo()
+        {
+            List<string> x = await _context.Pgroups.Select(x => x.Pgname).ToListAsync();
+
+            if (x == null || !x.Any()) { return Ok(new List<string>());}
+
+            else { return Ok(x); }
+        }
+
+
         // GET: api/Pgroups/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Pgroup>> GetPgroup(int id)

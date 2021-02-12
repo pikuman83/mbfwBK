@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using mbfwAPI.Models;
@@ -28,6 +26,18 @@ namespace mbfwAPI.Controllers
         {
             return await _context.Cities.ToListAsync();
         }
+
+
+        [HttpGet("reports/cname")]
+        public async Task<ActionResult> GetByNo()
+        {
+            List<string> x = await _context.Cities.Select(x => x.Cname).ToListAsync();
+
+            if (x == null || !x.Any()) { return Ok(new EmptyResult()); }
+
+            else { return Ok(x); }
+        }
+
 
         // GET: api/Cities/5
         [HttpGet("{id}")]

@@ -29,6 +29,15 @@ namespace mbfwAPI.Controllers
             return await _context.Mgrps.ToListAsync();
         }
 
+
+        [HttpGet("reports/gname")]
+        public async Task<ActionResult> GetByNo()
+        {
+            List<string> x = await _context.Mgrps.Select(x => x.Gname).ToListAsync();
+            if (x == null || !x.Any()) { return Ok(new EmptyResult()); }
+            else { return Ok(x); }
+        }
+
         // GET: api/Mgrps/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Mgrp>> GetMgrp(int id)

@@ -30,6 +30,26 @@ namespace mbfwAPI.Controllers
             return await _context.Parties.ToListAsync();
         }
 
+        [HttpGet("reports/customers")]
+        public async Task<ActionResult> GetCust()
+        {
+            var x = await _context.Parties.Where(c => c.Atype == 0).Select(x => new { acode = x.Vcode, aname = x.Vname, extra = x.City }).ToListAsync();
+
+            if (x == null || !x.Any()) { return Ok(new EmptyResult()); }
+
+            return Ok(x);
+        }
+
+        [HttpGet("reports/suppliers")]
+        public async Task<ActionResult> GetSup()
+        {
+            var x = await _context.Parties.Where(c => c.Atype == 1).Select(x => new { acode = x.Vcode, aname = x.Vname, extra = x.City }).ToListAsync();
+
+            if (x == null || !x.Any()) { return Ok(new EmptyResult()); }
+
+            return Ok(x);
+        }
+
         // GET: api/Parties/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Party>> GetParty(string id)

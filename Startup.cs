@@ -2,12 +2,15 @@
 using mbfwAPI.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.IO;
 
 namespace mbfwAPI
 {
@@ -40,13 +43,9 @@ namespace mbfwAPI
               c.SwaggerDoc("v1", new OpenApiInfo { Title = "Webapplication1", Version = "v1" });
             });
 
-            //services.AddSpaStaticFiles(configuration =>
-            //{
-            //    configuration.RootPath = "wwwRoot";
-            //});
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "wwwRoot"; });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -65,26 +64,15 @@ namespace mbfwAPI
                 .AllowAnyHeader());
 
             app.UseStaticFiles();
-            //if (!env.IsDevelopment())
-            //{
-            //    app.UseSpaStaticFiles();
-            //}
-            //app.UseSpa(spa =>
-            //{
-            //    // To learn more about options for serving an Angular SPA
-            //    // see https://go.microsoft.com/fwlink/?linkid=864501
-            //    //spa.Options.SourcePath = "wwwRoot";
-            //    if (env.IsDevelopment())
-            //    {
-            //        spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
-            //    }
-            //});
 
-            //app.UseStaticFiles(new StaticFileOptions()
-            //{
-            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
-            //    RequestPath = new PathString("/Resources")
-            //});
+            if (!env.IsDevelopment()) { app.UseSpaStaticFiles();}
+            app.UseSpa(spa => { spa.Options.SourcePath = "wwwRoot";  });
+
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new PathString("/Resources")
+            });
 
             //db.Database.Migrate();
 
@@ -98,3 +86,8 @@ namespace mbfwAPI
         }
     }
 }
+
+//if (env.IsDevelopment())
+//{
+//    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+//}

@@ -28,6 +28,16 @@ namespace mbfw_api.Controllers
             return await _context.Accounts.ToListAsync();
         }
 
+        [HttpGet("reports/accounts")]
+        public async Task<ActionResult> GetByNo()
+        {
+            var x = await _context.Accounts.Select(x => new { x.Acode, x.Aname, extra = x.Atpname}).ToListAsync();
+
+                if (x == null || !x.Any()) { return Ok(new EmptyResult()); }
+
+            return Ok(x);
+        }
+
         [HttpGet("purchases")]
         public async Task<ActionResult> GetPurchaseAccounts()
         {

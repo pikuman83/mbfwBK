@@ -45,7 +45,10 @@ namespace mbfwAPI.Controllers
                             color = b.Key,
                             avail = b.Sum(x => x.Inqt) - b.Sum(y => y.Outqt)
                           }).ToList();
-
+            if (availability == null || !availability.Any())
+            {
+                return _context.ProductColors.Where(c => c.Pcode == pcode).ToList();
+            }
                   return Ok(availability);
          }
   
