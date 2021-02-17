@@ -4,14 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using mbfwAPI.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace mbfw_api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    //[ApiController]
     public class AccountsController : ControllerBase
     {
         private readonly Mbfwcontext _context;
