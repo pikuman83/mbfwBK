@@ -43,7 +43,7 @@ namespace mbfwAPI.Controllers
         [HttpGet("mb/pendingRecords")] //used in SalesCredit voucher
         public async Task<ActionResult> GetpendingRecordsForSalesVoucher()
         {
-            return Ok(await _context.Grn1s.FromSqlRaw("select g.* from GIN1 g left outer join SALE1 p on g.no=p.ginno where p.ginno is null AND g.STYPE=0 Order By g.VDATE").ToListAsync());
+            return Ok(await _context.Gin1s.FromSqlRaw("select g.* from GIN1 g left outer join SALE1 p on g.no=p.ginno where p.ginno is null AND g.STYPE=0 Order By g.VDATE").ToListAsync());
         }
 
         // GET: api/Gin1/5
