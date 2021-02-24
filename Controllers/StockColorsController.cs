@@ -36,20 +36,41 @@ namespace mbfwAPI.Controllers
         [HttpGet("mb/getAvailability/{pcode}")]
         public object GetColoAvailability(string pcode)
         {
-                var availability = (from colors in _context.ProductColors.Where(c => c.Pcode == pcode)
-                          join stk in _context.StockColors on colors.Color equals stk.Color
-                          where stk.Pcode == pcode
-                          group stk by stk.Color into b
-                          select new
-                          {
-                            color = b.Key,
-                            avail = b.Sum(x => x.Inqt) - b.Sum(y => y.Outqt)
-                          }).ToList();
-            if (availability == null || !availability.Any())
+            var pcolor = _context.ProductColors.Where(c => c.Pcode == pcode).ToList();
+
+            var availability = (from colors in _context.ProductColors.Where(c => c.Pcode == pcode)
+                                join stk in _context.StockColors on colors.Color equals stk.Color
+                                where stk.Pcode == pcode
+                                group stk by stk.Color into b
+                                select new
+                                {
+                                    color = b.Key,
+                                    avail = b.Sum(x => x.Inqt) - b.Sum(y => y.Outqt)
+                                }).ToList();
+
+            if (availability != null && availability.Any() && availability.Count > 0)
             {
-                return _context.ProductColors.Where(c => c.Pcode == pcode).ToList();
-            }
-                  return Ok(availability);
+                int singleLoop = 0;
+                var result = new List<Object>();
+                foreach (var clr in availability)
+                {
+                    result.Add(clr);
+                    foreach (var p in pcolor)
+                    {
+                        if (p.Color != clr.color && singleLoop < pcolor.Count-2)
+                        {
+                            singleLoop++;
+                            result.Add(new
+                            {
+                                color = p.Color,
+                                avail = (double?)0
+                            });
+                        }
+                    }
+                };
+                return Ok(result.Distinct());
+            };
+            return Ok(pcolor);
          }
   
         //var sumInqt = (from x in _context.StockColors where x.Color == colors[i].Color && x.Pcode == pcode select x.Inqt).Sum();

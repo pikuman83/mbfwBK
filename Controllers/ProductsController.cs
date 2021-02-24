@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using mbfwAPI.Models;
@@ -29,12 +26,22 @@ namespace mbfwAPI.Controllers
             return await _context.Products.ToListAsync();
         }
 
+
         [HttpGet ("mb/raw")]
         public async Task<ActionResult<IEnumerable<Product>>> GetRawProducts()
         {
           return await _context.Products.Where(p => p.Ptype == 0 ).ToListAsync();
         }
 
+        [HttpGet("3c")]
+        public async Task<ActionResult> GetCust()
+        {
+            var x = await _context.Products.Select(x => new { acode = x.Pcode, aname = x.Pname, extra = x.Mgname }).ToListAsync();
+
+            if (x == null || !x.Any()) { return Ok(new EmptyResult()); }
+
+            return Ok(x);
+        }
 
         [HttpGet("mb/productsbytype/rawFinished")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductsRawFinished()

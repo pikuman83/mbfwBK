@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mbfwAPI.Models
 {
-    [Keyless]
     [Table("PRODTN2")]
     public partial class Prodtn2
     {
@@ -39,5 +38,8 @@ namespace mbfwAPI.Models
         [Column("SHIFT")]
         [StringLength(10)]
         public string Shift { get; set; }
+        [Key]
+        [Column("ID")]
+        public int Id { get; set; }
     }
 }

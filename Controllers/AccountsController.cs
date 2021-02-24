@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace mbfw_api.Controllers
 {
     [Route("api/[controller]")]
-    //[ApiController]
+    [ApiController]
     public class AccountsController : ControllerBase
     {
         private readonly Mbfwcontext _context;

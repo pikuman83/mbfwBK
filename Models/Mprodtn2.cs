@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mbfwAPI.Models
 {
-    [Keyless]
     [Table("MPRODTN2")]
     public partial class Mprodtn2
     {
@@ -35,5 +34,8 @@ namespace mbfwAPI.Models
         [Column("GDNAME")]
         [StringLength(100)]
         public string Gdname { get; set; }
+        [Key]
+        [Column("ID")]
+        public int Id { get; set; }
     }
 }

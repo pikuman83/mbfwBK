@@ -8,12 +8,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mbfwAPI.Models
 {
-    [Keyless]
     [Table("PRODTN1")]
     public partial class Prodtn1
     {
+        [Key]
         [Column("NO")]
-        public int? No { get; set; }
+        public int No { get; set; }
         [Column("VNO")]
         [StringLength(50)]
         public string Vno { get; set; }

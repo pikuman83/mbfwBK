@@ -29,6 +29,12 @@ namespace mbfwAPI.Controllers
             return await _context.ProductColors.ToListAsync();
         }
 
+        [HttpGet("colorByPcode/{pcode}")]
+        public async Task<ActionResult> GetByNo(string pcode)
+        {
+            return Ok(await _context.ProductColors.Where(x => x.Pcode == pcode).Select(y=> y.Color).ToListAsync());
+        }
+
         // GET: api/ProductColors/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductColor>> GetProductColor(int id)

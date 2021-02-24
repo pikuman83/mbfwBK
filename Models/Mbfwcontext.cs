@@ -114,6 +114,7 @@ namespace mbfwAPI.Models
         public virtual DbSet<Service2> Service2s { get; set; }
         public virtual DbSet<Sljournal> Sljournals { get; set; }
         public virtual DbSet<Slrep> Slreps { get; set; }
+        public virtual DbSet<Sltop5> Sltop5s { get; set; }
         public virtual DbSet<Sobal> Sobals { get; set; }
         public virtual DbSet<Socan1> Socan1s { get; set; }
         public virtual DbSet<Socan2> Socan2s { get; set; }
@@ -142,6 +143,7 @@ namespace mbfwAPI.Models
         public virtual DbSet<UidPassChild> UidPassChildren { get; set; }
         public virtual DbSet<View1> View1s { get; set; }
         public virtual DbSet<View2> View2s { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
@@ -268,6 +270,11 @@ namespace mbfwAPI.Models
                 entity.Property(e => e.Grp).ValueGeneratedNever();
             });
 
+            modelBuilder.Entity<Mprodtn1>(entity =>
+            {
+                entity.Property(e => e.No).ValueGeneratedNever();
+            });
+
             modelBuilder.Entity<Pgroup>(entity =>
             {
                 entity.Property(e => e.Pgrp).ValueGeneratedNever();
@@ -291,6 +298,11 @@ namespace mbfwAPI.Models
             });
 
             modelBuilder.Entity<Pret1>(entity =>
+            {
+                entity.Property(e => e.No).ValueGeneratedNever();
+            });
+
+            modelBuilder.Entity<Prodtn1>(entity =>
             {
                 entity.Property(e => e.No).ValueGeneratedNever();
             });
@@ -366,6 +378,11 @@ namespace mbfwAPI.Models
                     .WithMany(p => p.Service2s)
                     .HasForeignKey(d => d.Pcode)
                     .HasConstraintName("FK_SERVICE2_SERVICE2");
+            });
+
+            modelBuilder.Entity<Sltop5>(entity =>
+            {
+                entity.ToView("SLTOP5");
             });
 
             modelBuilder.Entity<Socan1>(entity =>
