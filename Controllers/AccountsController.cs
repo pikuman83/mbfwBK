@@ -125,8 +125,9 @@ namespace mbfw_api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Account>> DeleteAccount(string id)
         {
+            var InLgr = _context.Gnrllgrs.Any(x => x.Acode.Equals(id));
             var account = await _context.Accounts.FindAsync(id);
-            if (account == null)
+            if (account == null || InLgr)
             {
                 return NotFound();
             }

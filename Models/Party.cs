@@ -94,5 +94,11 @@ namespace mbfwAPI.Models
         public string Mgname { get; set; }
         [Column("ACTIV")]
         public short? Activ { get; set; }
+        [Column("TCODE")]
+        public int? Tcode{ get; set; }
+
+        [Column("TNAME")]
+        [StringLength(50)]
+        public string Tname { get; set; }
     }
 }

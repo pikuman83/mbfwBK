@@ -135,8 +135,10 @@ namespace mbfwAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Product>> DeleteProduct(string id)
         {
+            var prdInStk = _context.Stocks.Any(x => x.Pcode.Equals(id));
             var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            
+            if ( product == null || prdInStk)
             {
                 return NotFound();
             }

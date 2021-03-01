@@ -126,8 +126,9 @@ namespace mbfwAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Party>> DeleteParty(string id)
         {
+            var InLgr = _context.Gnrllgrs.Any(x => x.Acode.Equals(id));
             var party = await _context.Parties.FindAsync(id);
-            if (party == null)
+            if (party == null || InLgr)
             {
                 return NotFound();
             }
